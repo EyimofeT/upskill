@@ -22,7 +22,7 @@ app.use(morgan('combined'));
 
 //all users routers
 app.use("/api/v1",authRouter)
-app.use("/api/v1/user", userRouter);
+app.use("/api/v1", userRouter);
 app.use("/api/v1",courseRouter)
 // app.use("/api/v1/auth/dashboard", DashboardRouter);
 
