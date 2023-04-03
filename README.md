@@ -1,4 +1,4 @@
-# DemoCredit
+# Learning Platform
 API backend service for a Online Learning Platform.
 
 
