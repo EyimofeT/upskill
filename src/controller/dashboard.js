@@ -1,3 +1,5 @@
+// this file is not in use!
+
 import { con } from "../config/con_db.js";
 // import { mysqlConnection } from "../config/con_db.js";
 

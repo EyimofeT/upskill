@@ -16,7 +16,7 @@ export const getDashboardData = (req, res) => {
         
         const data = jwt.verify(token, process.env.JWT_SECRET_KEY);
         const { id } = data;
-        
+        // let dictionary={}
         const sql = 'select count(*) as total from enrolled_course_t where enrolled_course_t.student_id= ?';
         const sql2 = 'select enrolled_course_t.course_id,enrolled_course_t.student_progress,course_t.course_id,course_t.name,course_t.short_code,course_t.course_group,lecturer_t.lecturer_id,lecturer_t.first_name as lecturer_first_name,lecturer_t.last_name as lecturer_last_name, lecturer_t.department as lecturer_department from enrolled_course_t join course_t on enrolled_course_t.course_id=course_t.course_id join lecturer_t on course_t.lecturer_id=lecturer_t.lecturer_id where enrolled_course_t.student_id=?';
        

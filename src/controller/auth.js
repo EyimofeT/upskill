@@ -14,7 +14,7 @@ dotenv.config()
     if (err) throw err;
 
     if (result[0]) {
-      res.json({ message: "account with email exits" });
+      res.status(400).json({ message: "account with email exits" });
     }else{
     const hashpassword = await bcrypt.hash(password, 10);
     const student_id = first_name +"_" + (first_name.length+last_name.length);
@@ -44,15 +44,15 @@ dotenv.config()
 
   if (!result[0]) {
     // res.json({message: "Email Not Found"});
-    res.json({status: "failed",message: "Invalid Credentials"});
+    res.status(400).json({status: "failed",message: "Invalid Credentials"});
   }else{
     const passwordH = await bcrypt.compare(password,result[0].password);
    if (!passwordH) {
-    res.json({status: "failed",message: "Invalid Credentials"});
+    res.status(400).json({status: "failed",message: "Invalid Credentials"});
    }else{
     //token for verifying the user
-    const sql = 'update student_t set date_last_login=CURRENT_TIMESTAMP ';
-            con.query(sql, async (err,result) =>{
+    const sql = 'update student_t set date_last_login=CURRENT_TIMESTAMP where email=? ';
+            con.query(sql,[email], async (err,result) =>{
                 // console.log("Update Successful")
             })
 
@@ -83,7 +83,7 @@ export const getUser = (req, res) => {
   let token = req.headers.authorization;
  
   if (!token) {
-      return res.status(400).json({ message: "No Token Found!" });
+      return res.status(400).status(400).json({ message: "No Token Found!" });
   }
   token=token.split(' ')[1];
   // return res.status(200).json({ message: token });
