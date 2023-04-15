@@ -1,5 +1,6 @@
 export const userRegister = async (req,res,next) =>{
   const {first_name,last_name,email,password} = req.body;
+  console.log("resp:", req.body);
 
   if(!password){
     return res.status(400).json({message:"Password Field Required"});
