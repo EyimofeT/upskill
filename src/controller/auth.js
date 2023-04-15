@@ -128,7 +128,7 @@ export const Login = async (req, res) => {
           date_last_modified: result[0].date_last_modified,
           date_last_login: result[0].date_last_login,
         };
-        res.json({ status: "success", token, user_data: userdata });
+        res.json({ status: "success", access_token: token, user: userdata });
       }
     }
   });
@@ -140,7 +140,7 @@ export const getUser = (req, res) => {
   if (!token) {
     return res.status(400).status(400).json({ message: "No Token Found!" });
   }
-  token = token.split(" ")[1];
+  // token = token.split(" ")[1];
   // return res.status(200).json({ message: token });
 
   try {
@@ -165,7 +165,7 @@ export const getUser = (req, res) => {
       };
       return res
         .status(200)
-        .json({ status: 200, message: "success", userdata: userdata });
+        .json({ status: 200, message: "success", user: userdata });
     });
   } catch {
     return res.status(400).json({ message: "Invalid Token Found!" });
