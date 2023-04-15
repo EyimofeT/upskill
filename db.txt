@@ -1,6 +1,6 @@
 #create student table sql
 
-CREATE TABLE `bu_project`.`student_t` ( `id` INT(10) NOT NULL AUTO_INCREMENT 
+CREATE TABLE `elearningsam`.`student_t` ( `id` INT(10) NOT NULL AUTO_INCREMENT 
 , `first_name` VARCHAR(255) NOT NULL , `last_name` VARCHAR(255) NOT NULL , 
 `email` VARCHAR(255) NOT NULL , `role` INT(10) NOT NULL , 
 `student_id` VARCHAR(255) NOT NULL , `study_course_id` VARCHAR(255) NOT NULL ,
@@ -11,7 +11,7 @@ CREATE TABLE `bu_project`.`student_t` ( `id` INT(10) NOT NULL AUTO_INCREMENT
 `date_last_login` TIMESTAMP NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
 
 #course table
-CREATE TABLE `bu_project`.`course_t` ( `id` INT(10) NOT NULL AUTO_INCREMENT , `course_id` VARCHAR(255) NOT NULL , `name` VARCHAR(255) NOT NULL , `short_code` VARCHAR(255) NOT NULL , `lecturer_id` VARCHAR(255) NOT NULL , `course_group` VARCHAR(255) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+CREATE TABLE `elearningsam`.`course_t` ( `id` INT(10) NOT NULL AUTO_INCREMENT , `course_id` VARCHAR(255) NOT NULL , `name` VARCHAR(255) NOT NULL , `short_code` VARCHAR(255) NOT NULL , `lecturer_id` VARCHAR(255) NOT NULL , `course_group` VARCHAR(255) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
 
 #enrolled_course_t
-CREATE TABLE `bu_project`.`enrolled_course_t` ( `id` INT(10) NOT NULL AUTO_INCREMENT , `student_id` VARCHAR(255) NOT NULL , `course_id` VARCHAR(255) NOT NULL , `student_progress` VARCHAR(255) NOT NULL , `date_joined` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , `status` VARCHAR(255) NOT NULL DEFAULT 'incomplete' , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+CREATE TABLE `elearningsam`.`enrolled_course_t` ( `id` INT(10) NOT NULL AUTO_INCREMENT , `student_id` VARCHAR(255) NOT NULL , `course_id` VARCHAR(255) NOT NULL , `student_progress` VARCHAR(255) NOT NULL , `date_joined` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , `status` VARCHAR(255) NOT NULL DEFAULT 'incomplete' , PRIMARY KEY (`id`)) ENGINE = InnoDB;

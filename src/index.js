@@ -28,6 +28,6 @@ app.use("/api/v1",courseRouter)
 
 app.use(cookie());
 
-app.listen(process.env.PORT,()=> console.log("SERVER STARTED"));
+app.listen(process.env.PORT,()=> console.log(`SERVER STARTED on port ${process.env.PORT}`));
 
 //to start the app run {npm start}
