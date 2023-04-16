@@ -44,7 +44,7 @@ export const Registrer = async (req, res) => {
       // }else{
       //  const role = "user";
       // }
-      let student_role = "user";
+      let student_role = "student";
       if (role) {
         student_role = role;
       }
