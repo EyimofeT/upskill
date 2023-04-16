@@ -2,7 +2,7 @@ import mysql_con from "mysql";
 import dotenv from 'dotenv'
 dotenv.config()
 
-const con = mysql_con.createConnection({
+export const con = mysql_con.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   database: process.env.DB_NAME,
@@ -18,6 +18,3 @@ con.connect((err)=>{
   console.log("Error" + JSON.stringify(err,undefined, 2))
   
 })
-
-
-export default con;
