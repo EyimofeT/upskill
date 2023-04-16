@@ -14,7 +14,15 @@ const app = express();
 app.use(express.json());
 
 //trying to make api request from front end
-app.use(cors());
+// Enable cors
+var corsOptions = {
+ origin: ['http://localhost:3000', 'https://elearning-sam.vercel.app/'],
+ optionsSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
+
+// app.use(cors());
 
 
 // Logging middleware
