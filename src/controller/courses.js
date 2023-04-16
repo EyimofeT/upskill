@@ -6,15 +6,15 @@ dotenv.config();
 
 //getting all the courses available
 export const getCourse = (req, res) => {
-  res.set("Access-Control-Allow-Origin", "*");
-  res.set("Access-Control-Allow-Credentials", "true");
-  res.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  res.set(
-    "Access-Control-Allow-Headers",
-    "Content-Type, Authorization, Content-Length, X-Requested-With"
-  );
-  res.set("Access-Control-Expose-Headers", "Content-Length, X-JSON");
-  res.set("Access-Control-Max-Age", "10");
+//   res.set("Access-Control-Allow-Origin", "*");
+//   res.set("Access-Control-Allow-Credentials", "true");
+//   res.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+//   res.set(
+//     "Access-Control-Allow-Headers",
+//     "Content-Type, Authorization, Content-Length, X-Requested-With"
+//   );
+//   res.set("Access-Control-Expose-Headers", "Content-Length, X-JSON");
+//   res.set("Access-Control-Max-Age", "10");
 
   let token = req.headers.authorization;
 
@@ -75,15 +75,15 @@ export const getCourseById = (req, res) => {
 };
 
 export const register = (req, res) => {
-  res.set("Access-Control-Allow-Origin", "*");
-  res.set("Access-Control-Allow-Credentials", "true");
-  res.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  res.set(
-    "Access-Control-Allow-Headers",
-    "Content-Type, Authorization, Content-Length, X-Requested-With"
-  );
-  res.set("Access-Control-Expose-Headers", "Content-Length, X-JSON");
-  res.set("Access-Control-Max-Age", "10");
+//   res.set("Access-Control-Allow-Origin", "*");
+//   res.set("Access-Control-Allow-Credentials", "true");
+//   res.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+//   res.set(
+//     "Access-Control-Allow-Headers",
+//     "Content-Type, Authorization, Content-Length, X-Requested-With"
+//   );
+//   res.set("Access-Control-Expose-Headers", "Content-Length, X-JSON");
+//   res.set("Access-Control-Max-Age", "10");
 
   let token = req.headers.authorization;
 
