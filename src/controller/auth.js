@@ -2,6 +2,8 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { con } from "../config/con_db.js";
 import dotenv from "dotenv";
+import { v4 as uuidv4 } from 'uuid';
+
 dotenv.config();
 
 //getting the registrer infomation
@@ -58,8 +60,9 @@ export const Registrer = async (req, res) => {
       );
 
       con.query(
-        "INSERT INTO `student_t`(`first_name`, `last_name`, `email`, `student_id`,`study_course_id`,`level`, `password` , `group_id`,`merit_bandage`,`role`) VALUES (?,?,?,?,?,?,?,?,?,?)",
+        "INSERT INTO `student_t`(`id`, `first_name`, `last_name`, `email`, `student_id`,`study_course_id`,`level`, `password` , `group_id`,`merit_bandage`,`role`) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
         [
+          uuidv4(),
           first_name.toLowerCase(),
           last_name.toLowerCase(),
           email.toLowerCase(),
