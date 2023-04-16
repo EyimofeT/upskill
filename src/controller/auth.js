@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { con } from "../config/con_db.js";
 import dotenv from 'dotenv'
+import crypto from 'crypto'
 dotenv.config()
 
 //getting the registrer infomation
@@ -17,7 +18,8 @@ dotenv.config()
       res.status(400).json({ message: "account with email exits" });
     }else{
     const hashpassword = await bcrypt.hash(password, 10);
-    const student_id = first_name +"_" + (first_name.length+last_name.length);
+    // const student_id = first_name +"_" + (first_name.length+last_name.length);
+    const student_id=crypto.randomUUID()
     // if(role == "admin"){
     //   const role = "admin";
     // }else{
@@ -28,7 +30,7 @@ dotenv.config()
       student_role=role
     }
     con.query('INSERT INTO `student_t`(`first_name`, `last_name`, `email`, `student_id`,`study_course_id`,`level`, `password` , `group_id`,`merit_bandage`,`role`) VALUES (?,?,?,?,?,?,?,?,?,?)',[first_name.toLowerCase(),last_name.toLowerCase(),email.toLowerCase(),student_id.toLowerCase(),study_course_id.toLowerCase(),level.toLowerCase(),hashpassword,'0','novice',student_role.toLowerCase() ], (error,results) =>{
-  if(error) throw res.json(error);
+      if(error) throw res.json(error);
   return res.json({"status":"success",message:"Account Created"});
     });
     }
