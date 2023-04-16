@@ -6,15 +6,15 @@ dotenv.config();
 
 //getting all the courses available
 export const getCourse = (req, res) => {
-//   res.set("Access-Control-Allow-Origin", "*");
-//   res.set("Access-Control-Allow-Credentials", "true");
-//   res.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-//   res.set(
-//     "Access-Control-Allow-Headers",
-//     "Content-Type, Authorization, Content-Length, X-Requested-With"
-//   );
-//   res.set("Access-Control-Expose-Headers", "Content-Length, X-JSON");
-//   res.set("Access-Control-Max-Age", "10");
+  //   res.set("Access-Control-Allow-Origin", "*");
+  //   res.set("Access-Control-Allow-Credentials", "true");
+  //   res.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  //   res.set(
+  //     "Access-Control-Allow-Headers",
+  //     "Content-Type, Authorization, Content-Length, X-Requested-With"
+  //   );
+  //   res.set("Access-Control-Expose-Headers", "Content-Length, X-JSON");
+  //   res.set("Access-Control-Max-Age", "10");
 
   let token = req.headers.authorization;
 
@@ -75,15 +75,15 @@ export const getCourseById = (req, res) => {
 };
 
 export const register = (req, res) => {
-//   res.set("Access-Control-Allow-Origin", "*");
-//   res.set("Access-Control-Allow-Credentials", "true");
-//   res.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-//   res.set(
-//     "Access-Control-Allow-Headers",
-//     "Content-Type, Authorization, Content-Length, X-Requested-With"
-//   );
-//   res.set("Access-Control-Expose-Headers", "Content-Length, X-JSON");
-//   res.set("Access-Control-Max-Age", "10");
+  //   res.set("Access-Control-Allow-Origin", "*");
+  //   res.set("Access-Control-Allow-Credentials", "true");
+  //   res.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  //   res.set(
+  //     "Access-Control-Allow-Headers",
+  //     "Content-Type, Authorization, Content-Length, X-Requested-With"
+  //   );
+  //   res.set("Access-Control-Expose-Headers", "Content-Length, X-JSON");
+  //   res.set("Access-Control-Max-Age", "10");
 
   let token = req.headers.authorization;
 
@@ -120,7 +120,10 @@ export const register = (req, res) => {
             "INSERT INTO `enrolled_course_t`(`student_id`, `course_id`) VALUES (?,?)",
             [id, result[0].course_id],
             (error, results) => {
-              if (error) throw res.json(error);
+              //   if (error) throw res.json(error);
+              if (error) {
+                return res.status(400).json({ message: error });
+              }
               return res.json({
                 status: "success",
                 message: "Enrolled Successfully",
@@ -163,7 +166,9 @@ export const getRegisteredCourse = (req, res) => {
       "select student_t.student_id,enrolled_course_t.student_id,course_t.*,lecturer_t.first_name as lecturer_first_name,lecturer_t.last_name as lecturer_last_name from enrolled_course_t join student_t on enrolled_course_t.student_id=student_t.student_id join course_t on enrolled_course_t.course_id=course_t.course_id join lecturer_t on course_t.lecturer_id=lecturer_t.lecturer_id where enrolled_course_t.student_id=? ",
       [id],
       (error, results) => {
-        if (error) throw res.json(error);
+        if (error) {
+          return res.status(400).json({ message: "No Courses Found!" });
+        }
         let counter = 0;
         while (counter < results.length) {
           // console.log(result[counter].course_id)

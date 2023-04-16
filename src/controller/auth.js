@@ -24,8 +24,11 @@ export const Registrer = async (req, res) => {
   const sql = "SELECT * FROM student_t WHERE email = ?";
   //check if the user exits if not insert in to table
   con.query(sql, [email], async (err, result) => {
-    if (err) throw res.json(err);
-    
+    // if (err) throw err;
+    if (err) {
+      return res.status(400).json({ status: "failed", message: err });
+    }
+
     if (result[0]) {
       res.status(400).json({ message: "account with email exits" });
     } else {
@@ -67,7 +70,10 @@ export const Registrer = async (req, res) => {
           student_role,
         ],
         (error, results) => {
-          if (error) throw res.json(error);
+          // if (error) throw res.json(error);
+          if (error) {
+            return res.status(400).json({ status: "failed", message: error });
+          }
 
           return res.json({
             status: "success",
@@ -87,7 +93,10 @@ export const Login = async (req, res) => {
 
   const sql = "SELECT * FROM student_t WHERE email = ?";
   con.query(sql, [email], async (err, result) => {
-    if (err) throw res.json(err);
+    // if (err) throw err;
+    if (err) {
+      return res.status(400).json({ status: "failed", message: err });
+    }
 
     if (!result[0]) {
       // res.json({message: "Email Not Found"});
