@@ -93,13 +93,13 @@ export const Login = async (req, res) => {
       // res.json({message: "Email Not Found"});
       res
         .status(400)
-        .json({ status: "failed", message: "Invalid Credentials" });
+        .json({ status: "failed", message: "Invalid Email" });
     } else {
       const passwordH = await bcrypt.compare(password, result[0].password);
       if (!passwordH) {
         res
           .status(400)
-          .json({ status: "failed", message: "Invalid Credentials" });
+          .json({ status: "failed", message: "Password incorrect!" });
       } else {
         //token for verifying the user
         const sql =
