@@ -2,7 +2,7 @@ import mysql_con from "mysql";
 import dotenv from 'dotenv'
 dotenv.config()
 
-export const con = mysql_con.createPool({
+const con = mysql_con.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   database: process.env.DB_NAME,
@@ -20,4 +20,4 @@ con.connect((err)=>{
 })
 
 
-
+export default con;
