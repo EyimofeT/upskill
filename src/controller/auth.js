@@ -29,8 +29,10 @@ export const Registrer = async (req, res) => {
       return res.status(400).json({ status: "failed", message: err });
     }
 
+    console.log(result[0]);
+
     if (result[0]) {
-      res.status(400).json({ message: "account with email exits" });
+      res.status(400).json({ message: "account with email exists" });
     } else {
       const hashpassword = await bcrypt.hash(password, 10);
       const student_id =
