@@ -45,6 +45,7 @@ export const getCourse = (req, res) => {
 };
 
 export const getCourseById = (req, res) => {
+  console.log("Got here");
   res.set("Access-Control-Allow-Origin", "*");
   res.set("Access-Control-Allow-Credentials", "true");
   res.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
@@ -63,20 +64,22 @@ export const getCourseById = (req, res) => {
   if (!req.body.course_id) {
     return res.status(400).json({ message: "No Course ID Found!" });
   }
-  token = token.split(" ")[1];
+
+  // token = token.split(" ")[1];
+
   console.log("Token:", token);
   // return res.status(200).json({ message: token });
 
   try {
     const data = jwt.verify(token, process.env.JWT_SECRET_KEY);
     const { id } = data;
-    const course_id = req.body.course_id;
+    const course_id = req.params.id;
 
     console.log(id, course_id);
-    const sql = "SELECT * FROM course_t where course_id=? ";
+    const sql = "SELECT * FROM course_t where id=?";
     con.query(sql, [course_id], async (err, result) => {
       result[0].time = JSON.parse(result[0].time);
-      console.log(result);
+      console.log("Result:", result);
       return res
         .status(200)
         .json({ status: 200, message: "success", course: result });
