@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { con } from "../config/con_db.js";
 import dotenv from "dotenv";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 dotenv.config();
 
@@ -161,6 +161,7 @@ export const getUser = (req, res) => {
 
     const sql = "SELECT * FROM student_t WHERE student_id = ?";
     con.query(sql, [id], async (err, result) => {
+      console.log("Result:", result);
       let userdata = {
         first_name: result[0].first_name,
         last_name: result[0].last_name,
