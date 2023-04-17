@@ -6,15 +6,15 @@ dotenv.config();
 
 //getting all the courses available
 export const getCourse = (req, res) => {
-  //   res.set("Access-Control-Allow-Origin", "*");
-  //   res.set("Access-Control-Allow-Credentials", "true");
-  //   res.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  //   res.set(
-  //     "Access-Control-Allow-Headers",
-  //     "Content-Type, Authorization, Content-Length, X-Requested-With"
-  //   );
-  //   res.set("Access-Control-Expose-Headers", "Content-Length, X-JSON");
-  //   res.set("Access-Control-Max-Age", "10");
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Credentials", "true");
+  res.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.set(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Authorization, Content-Length, X-Requested-With"
+  );
+  res.set("Access-Control-Expose-Headers", "Content-Length, X-JSON");
+  res.set("Access-Control-Max-Age", "10");
 
   let token = req.headers.authorization;
 
@@ -45,6 +45,16 @@ export const getCourse = (req, res) => {
 };
 
 export const getCourseById = (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Credentials", "true");
+  res.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.set(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Authorization, Content-Length, X-Requested-With"
+  );
+  res.set("Access-Control-Expose-Headers", "Content-Length, X-JSON");
+  res.set("Access-Control-Max-Age", "10");
+
   let token = req.headers.authorization;
 
   if (!token) {
@@ -54,6 +64,7 @@ export const getCourseById = (req, res) => {
     return res.status(400).json({ message: "No Course ID Found!" });
   }
   token = token.split(" ")[1];
+  console.log("Token:", token);
   // return res.status(200).json({ message: token });
 
   try {
@@ -61,6 +72,7 @@ export const getCourseById = (req, res) => {
     const { id } = data;
     const course_id = req.body.course_id;
 
+    console.log(id, course_id);
     const sql = "SELECT * FROM course_t where course_id=? ";
     con.query(sql, [course_id], async (err, result) => {
       result[0].time = JSON.parse(result[0].time);

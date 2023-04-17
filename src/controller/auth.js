@@ -147,6 +147,16 @@ export const Login = async (req, res) => {
 };
 
 export const getUser = (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Credentials", "true");
+  res.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.set(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Authorization, Content-Length, X-Requested-With"
+  );
+  res.set("Access-Control-Expose-Headers", "Content-Length, X-JSON");
+  res.set("Access-Control-Max-Age", "10");
+
   let token = req.headers.authorization;
 
   if (!token) {
@@ -161,7 +171,6 @@ export const getUser = (req, res) => {
 
     const sql = "SELECT * FROM student_t WHERE student_id = ?";
     con.query(sql, [id], async (err, result) => {
-      console.log("Result:", result);
       let userdata = {
         first_name: result[0].first_name,
         last_name: result[0].last_name,
