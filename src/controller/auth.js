@@ -33,7 +33,7 @@ export const Registrer = async (req, res) => {
 
     console.log(result[0]);
 
-    if (result[0]) {
+    if (result[0] || result) {
       res.status(400).json({ message: "account with email exists" });
     } else {
       const hashpassword = await bcrypt.hash(password, 10);
