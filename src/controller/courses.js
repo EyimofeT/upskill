@@ -26,12 +26,14 @@ export const getCourse = (req, res) => {
 
   try {
     const data = jwt.verify(token, process.env.JWT_SECRET_KEY);
-    const sql = "SELECT * FROM course_t ";
+    // const sql = "SELECT * FROM course_t ";
+    const sql =
+      "select course_t.*, lecturer_t.first_name as lecturer_first_name, lecturer_t.last_name as lecturer_last_name from course_t join lecturer_t on course_t.lecturer_id=lecturer_t.lecturer_id";
     con.query(sql, async (err, result) => {
       let counter = 0;
       while (counter < result.length) {
         // console.log(result[counter].course_id)
-        // console.log(counter)
+        console.log("counter=>", counter);
         result[counter].time = JSON.parse(result[counter].time);
         counter++;
       }
