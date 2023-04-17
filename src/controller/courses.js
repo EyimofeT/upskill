@@ -95,7 +95,7 @@ export const register = (req, res) => {
   if (!token) {
     return res.status(400).json({ message: "No Token Found!" });
   }
-  if (!req.body.course_id) {
+  if (!req.params.id) {
     return res.status(400).json({ message: "No Course ID Found!" });
   }
   token = token.split(" ")[1];
@@ -104,26 +104,29 @@ export const register = (req, res) => {
   try {
     const data = jwt.verify(token, process.env.JWT_SECRET_KEY);
     const { id } = data;
-    const course_id = req.body.course_id;
+    const course_id = req.params.id;
+
+    console.log("course id:", course_id, "id:", id);
 
     const query =
       "SELECT id FROM enrolled_course_t where course_id=? and student_id=?";
     con.query(query, [course_id, id], (err, result) => {
       // console.log(err)
-      if (result.length > 0) {
+      console.log("result:", result);
+      if (result && result.length > 0) {
         res.status(400).json({ status: 400, message: "Already Registered " });
         return;
       } else {
-        const sql = "SELECT * FROM course_t where course_id=? ";
+        const sql = "SELECT * FROM course_t where id=?;";
         con.query(sql, [course_id], async (err, result) => {
-          if (result.length == 0) {
+          if (!result && result.length == 0) {
             return res
               .status(400)
               .json({ status: 400, message: "Course Not Found!" });
           }
           con.query(
             "INSERT INTO `enrolled_course_t`(`student_id`, `course_id`) VALUES (?,?)",
-            [id, result[0].course_id],
+            [id, result[0].id],
             (error, results) => {
               //   if (error) throw res.json(error);
               if (error) {
@@ -166,28 +169,28 @@ export const getRegisteredCourse = (req, res) => {
     const data = jwt.verify(token, process.env.JWT_SECRET_KEY);
     const { id } = data;
     // const course_id=req.body.course_id
-
-    con.query(
-      "select student_t.student_id,enrolled_course_t.student_id,course_t.*,lecturer_t.first_name as lecturer_first_name,lecturer_t.last_name as lecturer_last_name from enrolled_course_t join student_t on enrolled_course_t.student_id=student_t.student_id join course_t on enrolled_course_t.course_id=course_t.course_id join lecturer_t on course_t.lecturer_id=lecturer_t.lecturer_id where enrolled_course_t.student_id=? ",
-      [id],
-      (error, results) => {
-        if (error) {
-          return res.status(400).json({ message: "No Courses Found!" });
-        }
-        let counter = 0;
-        while (counter < results.length) {
-          // console.log(result[counter].course_id)
-          // console.log(counter)
-          results[counter].time = JSON.parse(results[counter].time);
-          counter++;
-        }
-        return res.json({
-          status: "success",
-          message: "Courses Fetched Successfully",
-          courses: results,
-        });
+    console.log("id=>", id);
+    const querysql =
+      "select student_t.student_id, enrolled_course_t.student_id, course_t.*, lecturer_t.first_name as lecturer_first_name, lecturer_t.last_name as lecturer_last_name from enrolled_course_t join student_t on enrolled_course_t.student_id=student_t.student_id join course_t on enrolled_course_t.course_id=course_t.id join lecturer_t on course_t.lecturer_id=lecturer_t.lecturer_id where enrolled_course_t.student_id=?;";
+    con.query(querysql, [id], (error, results) => {
+      // console.log("result:", results);
+      if (error) {
+        console.log("error:", error);
+        return res.status(400).json({ message: "No Courses Found!" });
       }
-    );
+      let counter = 0;
+      while (counter < results.length) {
+        // console.log(result[counter].course_id)
+        // console.log(counter)
+        results[counter].time = JSON.parse(results[counter].time);
+        counter++;
+      }
+      return res.json({
+        status: "success",
+        message: "Courses Fetched Successfully",
+        courses: results,
+      });
+    });
   } catch {
     return res.status(400).json({ message: "Invalid Token Found!" });
   }
