@@ -8,6 +8,16 @@ dotenv.config();
 
 //getting the registrer infomation
 export const Registrer = async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Credentials", "true");
+  res.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.set(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Authorization, Content-Length, X-Requested-With"
+  );
+  res.set("Access-Control-Expose-Headers", "Content-Length, X-JSON");
+  res.set("Access-Control-Max-Age", "10");
+
   const {
     first_name,
     last_name,
@@ -92,6 +102,16 @@ export const Registrer = async (req, res) => {
 };
 
 export const Login = async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Credentials", "true");
+  res.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.set(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Authorization, Content-Length, X-Requested-With"
+  );
+  res.set("Access-Control-Expose-Headers", "Content-Length, X-JSON");
+  res.set("Access-Control-Max-Age", "10");
+
   const { email, password } = req.body;
 
   console.log(email, password);
