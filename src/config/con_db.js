@@ -31,6 +31,12 @@ function handleDisconnect() {
   con = mysql_con.createConnection(db_config); // Recreate the connection, since
   // the old one cannot be reused.
 
+  // never let the connection die
+  setInterval(function () {
+    console.log("pinging database");
+    con.query("SELECT 1");
+  }, 5000);
+
   con.connect(function (err) {
     // The server is either down
     if (err) {
